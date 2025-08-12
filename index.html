@@ -3,14 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saw Mon Myat Oo | UCSM Student</title>
     <!-- EmailJS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS with your Public Key
-        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
-        emailjs.init('RRBWQB6NZUM1lF1zo');
+        // Load configuration from external config file
+        // This file should be in .gitignore
+        fetch('./config.js')
+            .then(response => response.text())
+            .then(text => {
+                // Execute the config script
+                eval(text);
+                // Initialize EmailJS with config
+                if (window.emailConfig) {
+                    emailjs.init(window.emailConfig.publicKey);
+                }
+            })
+            .catch(error => {
+                console.warn('Config file not found. EmailJS not initialized.');
+                // Fallback: Try environment variables or show setup instructions
+                showEmailSetupInstructions();
+            });
+
+        function showEmailSetupInstructions() {
+            console.log(`
+🔧 EMAIL SETUP REQUIRED:
+1. Create a config.js file in your root directory
+2. Add your EmailJS credentials:
+   window.emailConfig = {
+       publicKey: 'your_public_key_here',
+       serviceId: 'your_service_id_here',
+       templateId: 'your_template_id_here',
+       toEmail: 'your_email@example.com'
+   };
+3. Add config.js to .gitignore
+            `);
+        }
     </script>
-    <title>Saw Mon Myat Oo - UCSM Student</title>
     <style>
         * {
             margin: 0;
@@ -819,8 +848,6 @@
                 padding: 0 1.5rem 1.5rem;
             }
         }
-
-        /* Contact Section */
         .contact {
             text-align: center;
         }
@@ -1017,6 +1044,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="mobile-menu">
@@ -1057,8 +1085,8 @@
                     <div class="window-button maximize"></div>
                 </div>
                 <div class="code-line"><span class="keyword">const</span> developer = {</div>
-                <div class="code-line">  name: <span class="string">"Saw Mon Myat Oo"</span>,</div>
-                <div class="code-line">  skills: [<span class="string">"Java"</span>, <span class="string">"Node.js"</span>, <span class="string">"Python"</span>],</div>
+                <div class="code-line">  name: <span class="string">"Alex Chen"</span>,</div>
+                <div class="code-line">  skills: [<span class="string">"React"</span>, <span class="string">"Node.js"</span>, <span class="string">"Python"</span>],</div>
                 <div class="code-line">  <span class="function">code</span>: () => <span class="string">"Clean & Efficient"</span></div>
                 <div class="code-line">};</div>
             </div>
@@ -1342,12 +1370,12 @@
 
     <footer>
         <div class="social-links">
-            <a href="https://github.com/SawMonMyatOo/">GitHub</a>
-            <a href="https://linkedin.com/in/sawmonmyatoo">LinkedIn</a>
-            <a href="https://x.com/SawMonMyatOo">Twitter</a>
-            <!--<a href="mailto:sawmonmyatoo@proton.me">Email</a> -->
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+            <a href="#">Email</a>
         </div>
-        <p>&copy; 2025 Saw Mon Myat Oo. All rights reserved.</p>
+        <p>&copy; 2024 Alex Chen. All rights reserved.</p>
     </footer>
 
     <script>
@@ -1420,44 +1448,50 @@
             e.preventDefault();
             
             // Get form data
-            const formData = new FormData(this);
             const name = this.querySelector('input[type="text"]').value;
             const email = this.querySelector('input[type="email"]').value;
             const subject = this.querySelector('input[placeholder="Subject"]').value;
             const message = this.querySelector('textarea').value;
             
-            // Simulate form submission
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
             
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
-
-            // OPTION 1: EmailJS (Recommended - No backend needed)
-            // Uncomment and configure EmailJS service
             
-            emailjs.send('service_xlbuw6f', 'template_1kajuqh', {
-                from_name: name,
-                from_email: email,
-                subject: subject,
-                message: message,
-                to_email: 'sawmonmyatoo@outlook.com'
-            }).then(() => {
-                alert(`Thank you ${name}! Your message has been sent successfully.`);
-                this.reset();
-            }).catch((error) => {
-                alert('Sorry, there was an error sending your message. Please try again.');
-                console.error('EmailJS error:', error);
-            }).finally(() => {
+            // OPTION 1: EmailJS (Recommended - No backend needed)
+            // Load credentials from config file
+            if (window.emailConfig) {
+                const { serviceId, templateId, toEmail } = window.emailConfig;
+                
+                emailjs.send(serviceId, templateId, {
+                    from_name: name,
+                    from_email: email,
+                    subject: subject,
+                    message: message,
+                    to_email: toEmail
+                }).then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert(`Thank you ${name}! Your message has been sent successfully.`);
+                    this.reset();
+                }).catch((error) => {
+                    console.error('EmailJS error:', error);
+                    alert('Sorry, there was an error sending your message. Please try again.');
+                }).finally(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
+            } else {
+                // Fallback if config not loaded
+                alert('Email configuration not found. Please set up your EmailJS credentials.');
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-            });
-            
+            }
             
             // OPTION 2: Mailto link (Opens email client)
             // Uncomment to use default email client
             /*
-            const mailtoLink = `mailto:sawmonmyatoo@proton.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+            const mailtoLink = `mailto:your-email@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
             window.location.href = mailtoLink;
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
@@ -1530,12 +1564,15 @@
             });
             */
             
+            // Current: Simulated submission (REMOVE THIS SECTION AFTER SETTING UP EMAILJS)
+            /*
             setTimeout(() => {
-                alert(`Thank you ${name}! Your message has been sent successfully.`);
+                alert(`Thank you ${name}! Your message has been sent successfully.\n\n⚠️ This is currently a demo. To receive real emails, please implement one of the options in the JavaScript code.`);
                 this.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }, 2000);
+            */
         });
 
         // Parallax effect for floating shapes
@@ -1925,7 +1962,86 @@
             scrollProgress.style.width = scrollPercent + '%';
         });
 
-        //console.log('🚀 Portfolio loaded successfully! Try the Konami code: ↑↑↓↓←→←→BA');
+        // Certificate filtering functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const certificateCards = document.querySelectorAll('.certificate-card');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                certificateCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.classList.remove('hidden');
+                        card.style.animation = 'fadeInUp 0.6s ease forwards';
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category === filter) {
+                            card.classList.remove('hidden');
+                            card.style.animation = 'fadeInUp 0.6s ease forwards';
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Certificate modal functionality
+        function openCertModal(certTitle) {
+            const modal = document.getElementById('certModal');
+            const modalTitle = document.getElementById('modalCertTitle');
+            modalTitle.textContent = certTitle;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('certModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('certModal').addEventListener('click', (e) => {
+            if (e.target.id === 'certModal') {
+                closeCertModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCertModal();
+            }
+        });
+
+        // Animate certificates on scroll
+        const certificateObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 200);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Initialize certificate cards animation
+        document.querySelectorAll('.certificate-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease';
+            certificateObserver.observe(card);
+        });
+
+        console.log('🚀 Portfolio loaded successfully! Try the Konami code: ↑↑↓↓←→←→BA');
     </script>
 </body>
 </html>
