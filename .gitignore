@@ -1,4 +1,5 @@
 # Sensitive configuration files
+image/
 config.js
 config.local.js
 .env

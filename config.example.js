@@ -1,13 +1,13 @@
 window.emailConfig = {
     // Your EmailJS Public Key (from EmailJS dashboard > Account > General)
-    publicKey: 'RRBWQB6NZUM1lF1zo',
+    publicKey: 'yout_public_kay',
     
     // Your EmailJS Service ID (from EmailJS dashboard > Email Services)
-    serviceId: 'service_xlbuw6f',
+    serviceId: 'your_service_id',
     
     // Your EmailJS Template ID (from EmailJS dashboard > Email Templates)
-    templateId: 'template_1kajuqh',
+    templateId: 'your_template_id',
     
     // Your email address where messages will be sent
-    toEmail: 'sawmonmyatoo@outlook.com'
+    toEmail: 'your_email'
 };
