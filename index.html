@@ -3,397 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saw Mon Myat Oo | UCSM Student</title>
+    <meta name="description" content="Saw Mon Myat Oo - Full Stack Developer and UCSM student specializing in web development, networking and cloud.">
+    <title>Saw Mon Myat Oo | Full Stack Developer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- EmailJS CDN -->
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // Load configuration from external config file
-        // This file should be in .gitignore
         fetch('./config.js')
             .then(response => response.text())
             .then(text => {
-                // Execute the config script
                 eval(text);
-                // Initialize EmailJS with config
                 if (window.emailConfig) {
                     emailjs.init(window.emailConfig.publicKey);
                 }
             })
-            .catch(error => {
+            .catch(() => {
                 console.warn('Config file not found. EmailJS not initialized.');
-                // Fallback: Try environment variables or show setup instructions
-                showEmailSetupInstructions();
             });
-
-        function showEmailSetupInstructions() {
-            console.log(`
-🔧 EMAIL SETUP REQUIRED:
-1. Create a config.js file in your root directory
-2. Add your EmailJS credentials:
-   window.emailConfig = {
-       publicKey: 'your_public_key_here',
-       serviceId: 'your_service_id_here',
-       templateId: 'your_template_id_here',
-       toEmail: 'your_email@example.com'
-   };
-3. Add config.js to .gitignore
-            `);
-        }
-    </script>   
+    </script>
 </head>
 <body>
-    <div class="bg-animation">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
-    </div>
 
+    <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">SMMO</div>
-            <ul class="nav-links">
+            <a href="#home" class="logo">SMMO<span>.</span></a>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
+            <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Hi, I'm <span class="highlight">Saw Mon Myat Oo</span></h1>
-            <p>Full Stack Developer passionate about creating innovative web solutions and bringing ideas to life through clean, efficient code.</p>
-            <a href="#projects" class="cta-button">View My Work</a>
-        </div>
-    </section>
-
-    <section id="about" class="about scroll-reveal">
-        <div class="about-text">
-            <h2>About Me</h2>
-            <p>I'm a third year student of University of Computer Studies, Mandalay(UCSM).</p>
-            <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or brewing the perfect cup of coffee.</p>
-            <div class="skills-grid">
-                <div class="skill-item">JavaScript</div>
-                <div class="skill-item">C</div>
-                <div class="skill-item">Node.js</div>
-                <div class="skill-item">Python</div>
-                <div class="skill-item">AWS</div>
-                <div class="skill-item">Docker</div>
-                <div class="skill-item">C++</div>
-            </div>
-        </div>
-
-        <div class="about-image">
-            <div class="code-window">
-                <div class="window-header">
-                    <div class="window-button close"></div>
-                    <div class="window-button minimize"></div>
-                    <div class="window-button maximize"></div>
-                </div>
-                <div class="code-line"><span class="keyword">const</span> IT professional = {</div>
-                <div class="code-line">  name: <span class="string">"Saw Mon Myat Oo"</span>,</div>
-                <div class="code-line">  skills: [<span class="string">"Networking"</span>, <span class="string">"Node.js"</span>, <span class="string">"Python"</span>],</div>
-                <div class="code-line">  <span class="function">code</span>: () => <span class="string">"Clean & Efficient"</span></div>
-                <div class="code-line">};</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects scroll-reveal">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <!-- <div class="project-card">
-                <h3>E-Commerce Platform</h3>
-                <p>A full-stack e-commerce solution with real-time inventory management, payment processing, and admin dashboard.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">Node.js</span>
-                    <span class="tech-tag">MongoDB</span>
-                    <span class="tech-tag">Stripe</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link demo-link">Live Demo</a>
-                    <a href="#" class="project-link code-link">View Code</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Task Management App</h3>
-                <p>A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">Vue.js</span>
-                    <span class="tech-tag">Socket.io</span>
-                    <span class="tech-tag">Express</span>
-                    <span class="tech-tag">PostgreSQL</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link demo-link">Live Demo</a>
-                    <a href="#" class="project-link code-link">View Code</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Weather Analytics Dashboard</h3>
-                <p>A data visualization dashboard that displays weather patterns and analytics using real-time weather API data.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">D3.js</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Flask</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link demo-link">Live Demo</a>
-                    <a href="#" class="project-link code-link">View Code</a>
-                </div>
-            </div>-->
-        </div>
-    </section>
-
-    <section id="certificates" class="certificates scroll-reveal">
-        <h2>Certifications & Achievements</h2>
-        
-        <div class="certificates-filter">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="cloud">Cloud</button>
-            <button class="filter-btn" data-filter="programming">Programming</button>
-            <button class="filter-btn" data-filter="data">Data Science</button>
-            <button class="filter-btn" data-filter="security">Security</button>
-            <button class="filter-btn" data-filter="networking">Networking</button>
-        </div>
-
-        <div class="certificates-grid"> 
-            <!-- AWS Educate -->
-            <div class="certificate-card" data-category="cloud">
-                <div class="certificate-header">
-                    <div class="certificate-logo">AWS</div>
-                    <div class="certificate-title">AWS Educate Getting Started with Compute</div>
-                    <div class="certificate-issuer">Amazon Web Services Training and Certification</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        Earners of this badge have completed the Getting Started with Compute training and achieved the required scores on the post-course assessment. They have demonstrated the ability to describe different types of compute and use Amazon EC2 to create a compute instance.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Sep 2025</div>
-                        <div class="certificate-level">Beginner</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">Amazon Web Services (AWS)</span>
-                        <span class="skill-badge">EC2</span>
-                        <span class="skill-badge">AWS cloud</span>
-                        <span class="skill-badge">AWS compute</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="https://www.credly.com/users/saw-mon-myat-oo" class="cert-btn view-cert" onclick="openCertModal('AWS Educate Getting Started with Compute')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="https://www.credly.com/badges/e063ffb3-9028-428e-a91a-db6c8e2520de/public_url" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Google Cloud Professional -->
-            <!-- <div class="certificate-card" data-category="cloud">
-                <div class="certificate-header">
-                    <div class="certificate-logo">GCP</div>
-                    <div class="certificate-title">Google Cloud Professional Developer</div>
-                    <div class="certificate-issuer">Google Cloud</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        Demonstrates proficiency in designing, building, and deploying applications on Google Cloud Platform using best practices for scalability and reliability.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Oct 2023</div>
-                        <div class="certificate-level">Professional</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">GKE</span>
-                        <span class="skill-badge">Cloud Run</span>
-                        <span class="skill-badge">BigQuery</span>
-                        <span class="skill-badge">Pub/Sub</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="#" class="cert-btn view-cert" onclick="openCertModal('Google Cloud Professional Developer')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="#" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- React Professional -->
-            <!--<div class="certificate-card" data-category="programming">
-                <div class="certificate-header">
-                    <div class="certificate-logo">⚛️</div>
-                    <div class="certificate-title">Meta React Professional Certificate</div>
-                    <div class="certificate-issuer">Meta (Facebook)</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        Comprehensive program covering React fundamentals, advanced patterns, state management, and modern development practices for building scalable web applications.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Aug 2023</div>
-                        <div class="certificate-level">Professional</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">React</span>
-                        <span class="skill-badge">Redux</span>
-                        <span class="skill-badge">Jest</span>
-                        <span class="skill-badge">Hooks</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="#" class="cert-btn view-cert" onclick="openCertModal('Meta React Professional Certificate')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="#" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- Python Data Science -->
-            <!--<div class="certificate-card" data-category="data">
-                <div class="certificate-header">
-                    <div class="certificate-logo">🐍</div>
-                    <div class="certificate-title">Python for Data Science Specialization</div>
-                    <div class="certificate-issuer">IBM</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        Master data analysis and visualization using Python, including pandas, NumPy, matplotlib, and scikit-learn for machine learning applications.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Jun 2023</div>
-                        <div class="certificate-level">Intermediate</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">Python</span>
-                        <span class="skill-badge">Pandas</span>
-                        <span class="skill-badge">NumPy</span>
-                        <span class="skill-badge">Matplotlib</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="#" class="cert-btn view-cert" onclick="openCertModal('Python for Data Science Specialization')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="#" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- Cybersecurity -->
-            <!--<div class="certificate-card" data-category="security">
-                <div class="certificate-header">
-                    <div class="certificate-logo">🛡️</div>
-                    <div class="certificate-title">Cybersecurity Professional Certificate</div>
-                    <div class="certificate-issuer">Google</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        Comprehensive cybersecurity training covering threat analysis, incident response, network security, and risk management principles.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Apr 2023</div>
-                        <div class="certificate-level">Professional</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">Network Security</span>
-                        <span class="skill-badge">Risk Assessment</span>
-                        <span class="skill-badge">SIEM</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="#" class="cert-btn view-cert" onclick="openCertModal('Cybersecurity Professional Certificate')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="#" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- UX Design -->
-            <div class="certificate-card" data-category="networking">
-                <div class="certificate-header">
-                    <div class="certificate-logo">APIE</div>
-                    <div class="certificate-title">APIE Camp</div>
-                    <div class="certificate-issuer">SOI Asia (School on Internet Asis)</div>
-                </div>
-                <div class="certificate-body">
-                    <div class="certificate-description">
-                        APIE CAMP is a 5-day onsite course designed as a project-based curriculum for network design and implementation. Participants put into practice the skills and knowledge acquired in APIE ONLINE and E-WORKSHOP. This camp was hosted by UB from 10 to 14 February 2025.
-                    </div>
-                    <div class="certificate-meta">
-                        <div class="certificate-date">📅 Feb 2025</div>
-                        <div class="certificate-level">Intermediate</div>
-                    </div>
-                    <div class="certificate-skills">
-                        <span class="skill-badge">Network deployment</span>
-                        <span class="skill-badge">Virtualization</span>
-                        <span class="skill-badge">DNS</span>
-                        <span class="skill-badge">Basic AWS</span>
-                        <span class="skill-badge">Basic network security</span>
-                    </div>
-                    <div class="certificate-actions">
-                        <a href="/certificate/certificate-fd715627-1a53-4896-ba8d-03ee869ff448.pdf" class="cert-btn view-cert" onclick="openCertModal('APIE Camp 6 Certificate')">
-                            👁️ View Certificate
-                        </a>
-                        <a href="https://inxignia.soi.asia/public/collections/fb21236274cc142eb390ba495f577214" class="cert-btn verify-cert">🔍 Verify</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificate Modal -->
-    <div class="certificate-modal" id="certModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeCertModal()">×</button>
-            <div class="modal-certificate">
-                <h3 id="modalCertTitle">Certificate Title</h3>
-                <div class="certificate-preview">
-                    <div>Certificate preview would appear here</div>
-                </div>
-                <p style="color: var(--text-gray); margin-top: 1rem;">
-                    Click "Verify" to check authenticity with the issuing organization
+    <!-- Hero -->
+    <header id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Hello, I'm</p>
+                <h1>Saw Mon Myat Oo</h1>
+                <h2 class="hero-role">Full Stack Developer &amp; UCSM Student</h2>
+                <p class="hero-desc">
+                    I build clean, efficient web solutions and turn ideas into reliable
+                    digital products using modern technologies.
                 </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+                </div>
+                <div class="hero-social">
+                    <a href="https://github.com/sawmonmyatoo" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/sawmonmyatoo" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://x.com/sawmonmyatoo" target="_blank" rel="noopener">Twitter</a>
+                </div>
+            </div>
+
+            <div class="hero-photo">
+                <div class="photo-frame">
+                    <img src="public/1x1.png" alt="Portrait of Saw Mon Myat Oo">
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <section id="contact" class="contact scroll-reveal">
-        <h2>Let's Work Together</h2>
-        <p>Have a project in mind? I'd love to hear about it. Let's create something amazing together!</p>
-        <form class="contact-form">
-            <div class="form-group">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
+    <main>
+        <!-- About -->
+        <section id="about" class="section about reveal">
+            <div class="section-head">
+                <span class="section-tag">01 &mdash; About</span>
+                <h2>About Me</h2>
             </div>
-            <input type="text" placeholder="Subject" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-    </section>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I'm a third year student of the University of Computer Studies, Mandalay
+                        (UCSM), passionate about building software that solves real problems.
+                    </p>
+                    <p>
+                        When I'm not coding, you can find me exploring new technologies,
+                        contributing to open-source projects, or brewing the perfect cup of coffee.
+                    </p>
+
+                    <div class="skills-grid">
+                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">C</div>
+                        <div class="skill-item">Node.js</div>
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">AWS</div>
+                        <div class="skill-item">Docker</div>
+                        <div class="skill-item">C++</div>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <img src="certificate/ucsm_logo.png" alt="University of Computer Studies, Mandalay logo" loading="lazy">
+                    <h3>University of Computer Studies, Mandalay</h3>
+                    <p>Bachelor of Computer Science &mdash; Third Year</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="section projects reveal">
+            <div class="section-head">
+                <span class="section-tag">02 &mdash; Work</span>
+                <h2>Featured Projects</h2>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card placeholder">
+                    <h3>More Projects Coming Soon</h3>
+                    <p>
+                        I'm currently building new full-stack applications. New work will be
+                        published here shortly.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Certificates -->
+        <section id="certificates" class="section certificates reveal">
+            <div class="section-head">
+                <span class="section-tag">03 &mdash; Credentials</span>
+                <h2>Certifications &amp; Achievements</h2>
+            </div>
+
+            <div class="certificates-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="cloud">Cloud</button>
+                <button class="filter-btn" data-filter="programming">Programming</button>
+                <button class="filter-btn" data-filter="data">Data Science</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="networking">Networking</button>
+            </div>
+
+            <div class="certificates-grid">
+                <article class="certificate-card" data-category="cloud">
+                    <div class="certificate-header">
+                        <div class="certificate-logo">AWS</div>
+                        <div>
+                            <h3 class="certificate-title">AWS Educate Getting Started with Compute</h3>
+                            <p class="certificate-issuer">Amazon Web Services Training and Certification</p>
+                        </div>
+                    </div>
+                    <div class="certificate-body">
+                        <p class="certificate-description">
+                            Earners have completed the Getting Started with Compute training and
+                            demonstrated the ability to describe different types of compute and use
+                            Amazon EC2 to create a compute instance.
+                        </p>
+                        <div class="certificate-meta">
+                            <span class="certificate-date">Sep 2025</span>
+                            <span class="certificate-level">Beginner</span>
+                        </div>
+                        <div class="certificate-skills">
+                            <span class="skill-badge">AWS</span>
+                            <span class="skill-badge">EC2</span>
+                            <span class="skill-badge">Cloud</span>
+                            <span class="skill-badge">Compute</span>
+                        </div>
+                        <div class="certificate-actions">
+                            <a href="https://www.credly.com/badges/e063ffb3-9028-428e-a91a-db6c8e2520de/public_url"
+                               class="cert-btn verify-cert" target="_blank" rel="noopener">Verify</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="certificate-card" data-category="networking">
+                    <div class="certificate-header">
+                        <div class="certificate-logo">APIE</div>
+                        <div>
+                            <h3 class="certificate-title">APIE Camp</h3>
+                            <p class="certificate-issuer">SOI Asia (School on Internet Asia)</p>
+                        </div>
+                    </div>
+                    <div class="certificate-body">
+                        <p class="certificate-description">
+                            A 5-day project-based course focused on network design and implementation,
+                            building on the skills from APIE ONLINE and E-WORKSHOP. Hosted by UB,
+                            10&ndash;14 February 2025.
+                        </p>
+                        <div class="certificate-meta">
+                            <span class="certificate-date">Feb 2025</span>
+                            <span class="certificate-level">Intermediate</span>
+                        </div>
+                        <div class="certificate-skills">
+                            <span class="skill-badge">Network Deployment</span>
+                            <span class="skill-badge">Virtualization</span>
+                            <span class="skill-badge">DNS</span>
+                            <span class="skill-badge">AWS</span>
+                        </div>
+                        <div class="certificate-actions">
+                            <a href="/certificate/certificate-fd715627-1a53-4896-ba8d-03ee869ff448.pdf"
+                               class="cert-btn verify-cert" target="_blank" rel="noopener">View Certificate</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section contact reveal">
+            <div class="section-head">
+                <span class="section-tag">04 &mdash; Contact</span>
+                <h2>Let's Work Together</h2>
+            </div>
+            <p class="contact-lead">
+                Have a project in mind? I'd love to hear about it. Let's create something amazing together.
+            </p>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+            </form>
+        </section>
+    </main>
 
     <footer>
-        <div class="social-links">
-            <a href="https://github.com/sawmonmyatoo">GitHub</a>
-            <a href="https://www.linkedin.com/in/sawmonmyatoo">LinkedIn</a>
-            <a href="https://x.com/sawmonmyatoo">Twitter</a>
-            <a href="https://facebook.com/sawmonmyatoo">Facebook</a>
-            <a href="mailto:sawmonmyatoo@gmail.com">Email</a>
+        <div class="footer-inner">
+            <a href="#home" class="logo">SMMO<span>.</span></a>
+            <div class="social-links">
+                <a href="https://github.com/sawmonmyatoo" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/sawmonmyatoo" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://x.com/sawmonmyatoo" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://facebook.com/sawmonmyatoo" target="_blank" rel="noopener">Facebook</a>
+                <a href="mailto:sawmonmyatoo@gmail.com">Email</a>
+            </div>
+            <p>&copy; 2025 Saw Mon Myat Oo. All rights reserved.</p>
         </div>
-        <p>&copy; 2025 Saw Mon Myat Oo. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
